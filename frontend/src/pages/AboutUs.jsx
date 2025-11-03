@@ -49,7 +49,7 @@ export default function AboutUs() {
       },
       
       {
-        name: "Priya Sharma",
+        name: "Parul Bopche",
         role: "UI/UX Designer , Frontend Developer",
         img: "/team/priya.jpg",
       },
