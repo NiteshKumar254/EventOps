@@ -45,13 +45,13 @@ export default function AboutUs() {
       {
         name: "Nitesh Kumar",
         role: "Frontend/Backend Developer",
-        img: "/team/nitesh.jpg", //Add your image path
+        // img: "/team/nitesh.jpg", //Add your image path
       },
       
       {
         name: "Parul Bopche",
         role: "UI/UX Designer , Frontend Developer",
-        img: "/team/priya.jpg",
+        // img: "/team/priya.jpg",
       },
     ].map((member, index) => (
       <div
