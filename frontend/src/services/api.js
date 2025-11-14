@@ -59,16 +59,16 @@
 
 import axios from "axios";
 
-// ✅ Dynamically pick API base URL from .env
+// Dynamically pick API base URL from .env
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
-// ✅ Create Axios instance
+//  Create Axios instance
 const instance = axios.create({
   baseURL: `${API_URL}/api`,
   withCredentials: true, // 🔐 important if backend uses cookies or JWT in headers
 });
 
-// ✅ Automatically attach JWT token
+//  Automatically attach JWT token
 instance.interceptors.request.use((config) => {
   const user = JSON.parse(localStorage.getItem("user"));
   if (user?.token) {
@@ -77,7 +77,7 @@ instance.interceptors.request.use((config) => {
   return config;
 });
 
-// ✅ Handle expired or invalid tokens globally
+// Handle expired or invalid tokens globally
 instance.interceptors.response.use(
   (response) => response,
   (error) => {
