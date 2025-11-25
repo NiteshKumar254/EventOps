@@ -51,7 +51,7 @@ export default function AboutUs() {
       {
         name: "Parul Bopche",
         role: "UI/UX Designer , Frontend Developer",
-        // img: "/team/priya.jpg",
+        // img: "/team/parul.jpg",
       },
     ].map((member, index) => (
       <div
