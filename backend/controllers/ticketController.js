@@ -187,13 +187,23 @@ const sendTicketEmail = async (email, ticket) => {
     };
 
     // Send the mail
-    await transporter.sendMail(mailOptions);
-    console.log("Ticket email sent successfully to:", email);
-  } catch (error) {
-    console.error("Background email send error:", error);
-    // Yahan sirf log karna hai, client ko koi error nahi jayega
-  }
-};
+//     await transporter.sendMail(mailOptions);
+//     console.log("Ticket email sent successfully to:", email);
+//   } catch (error) {
+//     console.error("Background email send error:", error);
+//     // Yahan sirf log karna hai, client ko koi error nahi jayega
+//   }
+// };
+    const transporter = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false, // 587 = TLS (STARTTLS)
+  auth: {
+    user: process.env.EMAIL_USER,   // your@gmail.com
+    pass: process.env.EMAIL_PASS,   // APP PASSWORD
+  },
+});
+
 
 export const checkInTicket = async (req, res) => {
   try {
