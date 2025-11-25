@@ -152,13 +152,22 @@ const sendTicketEmail = async (email, ticket) => {
     const qrImage = Buffer.from(qrResponse.data, "binary");
 
     // Create transporter (Gmail)
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS, // Gmail ke liye APP PASSWORD hona chahiye
-      },
-    });
+    // const transporter = nodemailer.createTransport({
+    //   service: "gmail",
+    //   auth: {
+    //     user: process.env.EMAIL_USER,
+    //     pass: process.env.EMAIL_PASS, // Gmail ke liye APP PASSWORD hona chahiye
+    //   },
+    // });
+       const transporter = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false, // 587 = TLS (STARTTLS)
+  auth: {
+    user: process.env.EMAIL_USER,   // your@gmail.com
+    pass: process.env.EMAIL_PASS,   // APP PASSWORD
+  },
+});
 
     // Build email content
     const mailOptions = {
@@ -187,22 +196,14 @@ const sendTicketEmail = async (email, ticket) => {
     };
 
     // Send the mail
-//     await transporter.sendMail(mailOptions);
-//     console.log("Ticket email sent successfully to:", email);
-//   } catch (error) {
-//     console.error("Background email send error:", error);
-//     // Yahan sirf log karna hai, client ko koi error nahi jayega
-//   }
-// };
-    const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false, // 587 = TLS (STARTTLS)
-  auth: {
-    user: process.env.EMAIL_USER,   // your@gmail.com
-    pass: process.env.EMAIL_PASS,   // APP PASSWORD
-  },
-});
+    await transporter.sendMail(mailOptions);
+    console.log("Ticket email sent successfully to:", email);
+  } catch (error) {
+    console.error("Background email send error:", error);
+    // Yahan sirf log karna hai, client ko koi error nahi jayega
+  }
+};
+ 
 
 
 export const checkInTicket = async (req, res) => {
