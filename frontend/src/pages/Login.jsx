@@ -33,14 +33,15 @@ export default function Login() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#0B0B0C] bg-[url('/loginbg.png')] bg-cover bg-center bg-no-repeat">
-      <div className="bg-white shadow-lg rounded-xl p-8 w-full max-w-md">
-        <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
+      <div className="bg-[#0C1B33]/80 backdrop-blur-lg
+ shadow-lg rounded-xl p-8 w-full max-w-md">
+        <h2 className="text-2xl font-bold text-center mb-6 text-white">
           Admin Login
         </h2>
 
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="block text-gray-700 mb-1">Email</label>
+            <label className="block text-gray-300 mb-1">Email</label>
             <input
               type="email"
               placeholder="Enter your email"
@@ -53,7 +54,7 @@ export default function Login() {
           </div>
 
           <div className="mb-6">
-            <label className="block text-gray-700 mb-1">Password</label>
+            <label className="block text-gray-300 mb-1">Password</label>
             <input
               type="password"
               placeholder="Enter your password"
@@ -78,11 +79,11 @@ export default function Login() {
           </button>
         </form>
 
-        <p className="text-center text-gray-600 mt-4">
+        <p className="text-center text-gray-300 mt-4">
           Don’t have an account?{" "}
           <Link
             to="/signup"
-            className="text-blue-600 hover:underline font-medium"
+            className="text-blue-200 hover:underline font-medium"
           >
             Sign up here
           </Link>
