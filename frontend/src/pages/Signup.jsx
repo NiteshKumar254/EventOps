@@ -42,9 +42,9 @@ export default function Signup() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-      <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
-        <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">
+    <div className="min-h-screen flex items-center justify-center bg-[url('/signupbg.png')] bg-cover bg-center bg-gray-100  bg-no-repeat px-4">
+      <div className="bg-[#0C1B33]/110 p-8 rounded-2xl shadow-xl w-full max-w-md border border-white/30 ml-50 ml-[50px] mt-[10px]">
+        <h2 className="text-3xl font-bold mb-6 text-center text-gray-300">
           Create Account
         </h2>
 
@@ -87,9 +87,9 @@ export default function Signup() {
           </button>
         </form>
 
-        <p className="mt-6 text-center text-gray-600">
+        <p className="mt-6 text-center text-gray-300">
           Already have an account?{" "}
-          <Link to="/login" className="text-blue-600 hover:underline font-medium">
+          <Link to="/login" className="text-blue-300 hover:underline font-medium">
             Login here
           </Link>
         </p>

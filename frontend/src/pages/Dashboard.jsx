@@ -110,7 +110,7 @@ export default function Dashboard() {
 
   return (
     <div
-      className={`min-h-screen bg-[#0B0B0C] text-neutral-100 transition-opacity duration-700 ${
+      className={`min-h-screen bg-[#0B0B0C] bg-text-neutral-100 transition-opacity duration-700 ${
         fadeIn ? "opacity-100" : "opacity-0"
       }`}
     >

@@ -28,7 +28,7 @@ export default function HowItWorks() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white px-6 py-12 flex flex-col items-center">
+    <div className="min-h-screen bg-gray-950   bg-[url('/dashboardbg.png')] bg-cover bg-center bg-no-repeat text-white px-6 py-12 flex flex-col items-center">
       <motion.h1
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}

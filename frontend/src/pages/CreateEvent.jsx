@@ -31,10 +31,10 @@ export default function CreateEvent() {
   return (
  
     // <div className="flex justify-center mt-12 px-4 ">
-       <div className="min-h-screen flex justify-center items-center bg-black px-4 py-8">
+       <div className="min-h-screen flex justify-center items-center bg-black px-4 py-8 bg-[url('/eventbg.png')] bg-cover">
       <form 
         onSubmit={handleSubmit} 
-        className="bg-gray-900 text-white p-8 rounded-2xl shadow-lg w-full max-w-md"
+        className="bg-[#0C1B33] rounded-2xl border border-white/10 shadow-2xl text-white p-8 rounded-2xl shadow-lg w-full max-w-md"
       >
         <h2 className="text-2xl font-bold mb-6 text-center">Create Event</h2>
 

@@ -2,7 +2,7 @@ import { Users, Target, Rocket, HeartHandshake } from "lucide-react";
 
 export default function AboutUs() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white py-16 px-6">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800   bg-[url('/dashboardbg.png')] bg-cover bg-center bg-no-repeat text-white py-16 px-6">
       <div className="max-w-5xl mx-auto text-center">
         <h1 className="text-4xl font-bold mb-6">About Us</h1>
         <p className="text-lg text-gray-300 mb-12">

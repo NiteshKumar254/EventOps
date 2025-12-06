@@ -33,8 +33,8 @@ export default function Login() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#0B0B0C] bg-[url('/loginbg.png')] bg-cover bg-center bg-no-repeat">
-      <div className="bg-[#0C1B33]/80 backdrop-blur-lg
- shadow-lg rounded-xl p-8 w-full max-w-md">
+      <div className="backdrop-blur-lg
+ shadow-lg rounded-xl p-8 w-full max-w-md mt-[60px] border border-white/30">
         <h2 className="text-2xl font-bold text-center mb-6 text-white">
           Admin Login
         </h2>
@@ -72,7 +72,7 @@ export default function Login() {
             className={`w-full py-2 rounded-lg text-white font-semibold ${
               loading
                 ? "bg-gray-400 cursor-not-allowed"
-                : "bg-blue-600 hover:bg-blue-700"
+                : "bg-gray-600 hover:bg-blue-500"
             }`}
           >
             {loading ? "Logging in..." : "Login"}
