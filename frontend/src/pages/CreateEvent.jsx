@@ -30,7 +30,6 @@ export default function CreateEvent() {
 
   return (
  
-    // <div className="flex justify-center mt-12 px-4 ">
        <div className="min-h-screen flex justify-center items-center bg-black px-4 py-8 bg-[url('/eventbg.png')] bg-cover">
       <form 
         onSubmit={handleSubmit} 
