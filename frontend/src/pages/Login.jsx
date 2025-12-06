@@ -4,6 +4,7 @@ import { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
 
+
 export default function Login() {
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className="min-h-screen flex items-center justify-center bg-[#0B0B0C] bg-[url('loginbg.png')] bg-cover bg-center bg-no-repeat">
       <div className="bg-white shadow-lg rounded-xl p-8 w-full max-w-md">
         <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
           Admin Login
