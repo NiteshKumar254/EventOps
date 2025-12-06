@@ -45,7 +45,7 @@ export default function AboutUs() {
       {
         name: "Nitesh Kumar",
         role: "Frontend/Backend Developer",
-        // img: "/team/nitesh.jpg", //Add your image path
+        // img: "/team/nitesh.jpg", 
       },
       
       {
@@ -71,7 +71,7 @@ export default function AboutUs() {
         <h3 className="text-xl font-semibold">{member.name}</h3>
         <p className="text-gray-400 mt-1">{member.role}</p>
 
-        {/* Optional Social Links (add if you want) */}
+      
         
         <div className="flex gap-4 mt-4">
           <a href="#" className="text-gray-400 hover:text-purple-400 transition">
