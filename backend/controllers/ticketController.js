@@ -334,15 +334,20 @@ const sendTicketEmail = async (email, ticket) => {
 //     pass: process.env.EMAIL_PASS,   // APP PASSWORD
 //   },
 // });
+
+
 const transporter = nodemailer.createTransport({
   host: "smtp-relay.brevo.com",
-  port: 587,
+  port: 2525,              //  CHANGE HERE
   secure: false,
   auth: {
-    user: process.env.BREVO_SMTP_LOGIN, // 👈 @smtp-brevo.com
-    pass: process.env.BREVO_SMTP_KEY
-  }
+    user: process.env.BREVO_SMTP_LOGIN,
+    pass: process.env.BREVO_SMTP_KEY,
+  },
+  connectionTimeout: 20000, // extra safety
+  socketTimeout: 20000,
 });
+
 
 
 
