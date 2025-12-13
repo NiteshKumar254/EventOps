@@ -137,13 +137,13 @@ export const assignTicketToUser = async (req, res) => {
     ticket.assignedEmail = email;
     await ticket.save();
 
-    // ✅ Client ko turant success response
+    // Client ko turant success response
     res.json({
       message: "Ticket assigned successfully! Email is being sent.",
       ticket,
     });
 
-    // ✅ Email background me bhejo, fail hua to bhi API safe rahegi
+    // Email background me bhejo, fail hua to bhi API safe rahegi
     sendTicketEmail(email, ticket).catch((err) => {
       console.error("Error while sending ticket email in background:", err);
     });
@@ -156,5 +156,5 @@ export const assignTicketToUser = async (req, res) => {
 };
 
 
-//////////////curr update other before ok local
+
 

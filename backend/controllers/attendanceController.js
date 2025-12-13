@@ -23,11 +23,11 @@ export const getAttendanceReport = async (req, res) => {
       return res.status(404).json({ message: "No tickets found for this event" });
     }
 
-    // ✅ Calculate attendance stats
+    // Calculate attendance stats
     const totalTickets = tickets.length;
     const checkedInCount = tickets.filter((t) => t.checkedIn).length;
 
-    // ✅ If frontend request → return JSON summary (no format)
+    // If frontend request → return JSON summary (no format)
     if (!format) {
       return res.status(200).json({
         success: true,
@@ -38,7 +38,7 @@ export const getAttendanceReport = async (req, res) => {
       });
     }
 
-    // ✅ If export requested → handle CSV or PDF
+    // If export requested → handle CSV or PDF
     const filename = `attendance_${eventId}.${format}`;
 
     if (format === "pdf") {
@@ -49,7 +49,7 @@ export const getAttendanceReport = async (req, res) => {
       return res.status(400).json({ message: "Invalid export format" });
     }
 
-    // ✅ Send the file and then delete after sending
+    //  Send the file and then delete after sending
     res.download(filename, (err) => {
       if (err) {
         console.error("Download error:", err);

@@ -9,7 +9,7 @@ const generateToken = (id) => {
 };
 
 // ==========================
-// 📌 REGISTER USER
+//  REGISTER USER
 // POST /api/auth/register
 // ==========================
 export const registerUser = async (req, res) => {
@@ -46,7 +46,7 @@ export const registerUser = async (req, res) => {
 };
 
 // ==========================
-// 📌 LOGIN USER
+//  LOGIN USER
 // POST /api/auth/login
 // ==========================
 export const loginUser = async (req, res) => {
@@ -73,7 +73,7 @@ export const loginUser = async (req, res) => {
 };
 
 // ==========================
-// 📌 GET USER PROFILE
+//  GET USER PROFILE
 // GET /api/auth/profile
 // ==========================
 export const getUserProfile = async (req, res) => {

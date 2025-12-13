@@ -1,6 +1,6 @@
 
 
-//12-10
+
 import Event from "../models/Event.js";
 import Ticket from "../models/Ticket.js";
 import { generateQRCode } from "../utils/generateQR.js";
@@ -27,7 +27,7 @@ export const createEvent = async (req, res) => {
   try {
     const { name, date, venue, totalSeats, vipSeats, regularSeats } = req.body;
 
-    // 1️⃣ Create Event document
+    // 1️ Create Event document
     const event = await Event.create({
       name,
       date,
@@ -38,7 +38,7 @@ export const createEvent = async (req, res) => {
       createdBy: req.user._id, // Link to logged-in user
     });
 
-    // 2️⃣ Generate tickets array
+    // 2️ Generate tickets array
     const tickets = [];
 
     // VIP Tickets
