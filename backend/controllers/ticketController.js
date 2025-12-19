@@ -1,34 +1,22 @@
-
 import Ticket from "../models/Ticket.js";
 import moment from "moment";
 import nodemailer from "nodemailer";
 import axios from "axios";
-
 //  Helper: background me email bhejne ka kaam yahan hoga
 const sendTicketEmail = async (email, ticket) => {
-  try {
-    console.log("Preparing ticket email for:", email);
-
+  try { onsole.log("Preparing ticket email for:", email);
     // Fetch QR code image as binary data
     const qrResponse = await axios.get(ticket.qrCode, { responseType: "arraybuffer" });
     const qrImage = Buffer.from(qrResponse.data, "binary");
-
-  
        const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false, // 587 = TLS (STARTTLS)
-  auth: {
-    user: process.env.EMAIL_USER,   // your@gmail.com
-    pass: process.env.EMAIL_PASS,   // APP PASSWORD
-  },
-});
-
+  host: "smtp.gmail.com", port: 587,  secure: false, // 587 = TLS (STARTTLS)
+  auth: {  user: process.env.EMAIL_USER,   // your@gmail.com
+             pass: process.env.EMAIL_PASS,   // APP PASSWORD
+ }, });
     // Build email content
     const mailOptions = {
       from: `"Event Management" <${process.env.EMAIL_USER}>`,
-      to: email,
-      subject: "🎟️ Your Event Ticket",
+      to: email,  subject: "🎟️ Your Event Ticket",
       html: `
         <div style="font-family: Arial, sans-serif; padding:16px; border:1px solid #eee; border-radius:8px;">
           <h2 style="color:#333;">Your Event Ticket</h2>
@@ -42,108 +30,62 @@ const sendTicketEmail = async (email, ticket) => {
         </div>
       `,
       attachments: [
-        {
-          filename: "ticket-qr.png",
-          content: qrImage,
+        { filename: "ticket-qr.png", content: qrImage,
           cid: "qrcode", // reference for inline image
-        },
-      ],
-    };
-
+          }, ], };
     // Send the mail
     await transporter.sendMail(mailOptions);
     console.log("Ticket email sent successfully to:", email);
   } catch (error) {
     console.error("Background email send error:", error);
-    // Yahan sirf log karna hai, client ko koi error nahi jayega
-  }
-};
- 
-
+  } };
 
 export const checkInTicket = async (req, res) => {
-  try {
-    const { ticketId } = req.body;
-
+  try {  const { ticketId } = req.body;
     const ticket = await Ticket.findOne({ ticketId });
     if (!ticket) return res.status(404).json({ message: "Ticket not found" });
-
-    if (moment().isAfter(ticket.expiryDate))
-      return res.status(400).json({ message: "Ticket has expired" });
-
-    if (ticket.isUsed)
-      return res.status(400).json({ message: "Ticket already used" });
-
+    if (moment().isAfter(ticket.expiryDate)) return res.status(400).json({ message: "Ticket has expired" });
+    if (ticket.isUsed)  return res.status(400).json({ message: "Ticket already used" });
     ticket.isUsed = true;
     ticket.checkInTime = new Date();
     await ticket.save();
-
     res.json({
       message: "Check-in successful",
-      ticket: {
-        attendeeName: ticket.attendeeName,
-        seatType: ticket.seatType,
-        seatNumber: ticket.seatNumber,
-        eventId: ticket.eventId,
-      },
-    });
-  } catch (error) {
-    console.error("Check-in error:", error);
+      ticket: { attendeeName: ticket.attendeeName,  seatType: ticket.seatType,
+        seatNumber: ticket.seatNumber, eventId: ticket.eventId,}, });
+  } catch (error) {  console.error("Check-in error:", error);
     res.status(500).json({ message: "Server Error", error: error.message });
-  }
-};
-
+  }};
 export const getTicketsByEvent = async (req, res) => {
-  try {
-    const { eventId } = req.params;
-
+  try { const { eventId } = req.params;
     const tickets = await Ticket.find({ eventId }).sort({ createdAt: -1 });
-    if (!tickets.length)
-      return res.status(404).json({ message: "No tickets found for this event" });
-
+    if (!tickets.length) return res.status(404).json({ message: "No tickets found for this event" });
     res.json(
-      tickets.map((t) => ({
-        ticketId: t.ticketId,
-        attendeeName: t.attendeeName,
-        seatType: t.seatType,
-        seatNumber: t.seatNumber,
-        qrCode: t.qrCode,
-        isUsed: t.isUsed,
-        checkInTime: t.checkInTime,
-        isAssigned: t.isAssigned || false,
-        assignedEmail: t.assignedEmail || null,
-      }))
-    );
-  } catch (error) {
-    console.error("Fetch tickets error:", error);
-    res.status(500).json({ message: "Server Error", error: error.message });
-  }
-};
+      tickets.map((t) => ({ ticketId: t.ticketId, attendeeName: t.attendeeName,  seatType: t.seatType,
+                             seatNumber: t.seatNumber, qrCode: t.qrCode, isUsed: t.isUsed,
+                             checkInTime: t.checkInTime, isAssigned: t.isAssigned || false,
+                            assignedEmail: t.assignedEmail || null,})));
+  } catch (error) { console.error("Fetch tickets error:", error);
+    res.status(500).json({ message: "Server Error", error: error.message });} };
 
 export const assignTicketToUser = async (req, res) => {
   try {
     const { ticketId, email } = req.body;
-
     const ticket = await Ticket.findOne({ ticketId });
     if (!ticket) return res.status(404).json({ message: "Ticket not found" });
-
     if (ticket.isAssigned)
       return res.status(400).json({ message: "Ticket already assigned" });
-
     console.log("Assigning ticket to:", email);
-
     // Mark ticket as assigned and save (email se independent)
     ticket.isAssigned = true;
     ticket.assignedEmail = email;
     await ticket.save();
-
-    // Client ko turant success response
+    // success response to client instantly
     res.json({
       message: "Ticket assigned successfully! Email is being sent.",
       ticket,
     });
-
-    // Email background me bhejo, fail hua to bhi API safe rahegi
+    // sending email in background
     sendTicketEmail(email, ticket).catch((err) => {
       console.error("Error while sending ticket email in background:", err);
     });

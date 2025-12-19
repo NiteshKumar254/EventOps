@@ -49,34 +49,19 @@ export default function Signup() {
         </h2>
 
         <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="name"
-            placeholder="Full Name"
-            value={formData.name}
+          <input  type="text"  name="name"  placeholder="Full Name"  value={formData.name}  onChange={handleChange}
+            className="w-full mb-4 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+          />
+          <input type="email"  name="email"  placeholder="Email Address"  value={formData.email}
             onChange={handleChange}
             className="w-full mb-4 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
           />
-          <input
-            type="email"
-            name="email"
-            placeholder="Email Address"
-            value={formData.email}
-            onChange={handleChange}
-            className="w-full mb-4 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={formData.password}
+          <input  type="password"  name="password"  placeholder="Password"  value={formData.password}
             onChange={handleChange}
             className="w-full mb-6 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
           />
 
-          <button
-            type="submit"
-            disabled={loading}
+          <button  type="submit"  disabled={loading}
             className={`w-full py-2 text-white font-semibold rounded-lg transition ${
               loading
                 ? "bg-green-400 cursor-not-allowed"

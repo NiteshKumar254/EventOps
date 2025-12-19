@@ -1,41 +1,4 @@
-// import { Parser } from "json2csv";
-// import PDFDocument from "pdfkit";
-// import fs from "fs";
 
-// export const exportToCSV = (tickets, filename) => {
-//   try {
-//     const fields = ["ticketId", "attendeeName", "seatType", "seatNumber", "isUsed", "checkInTime"];
-//     const json2csvParser = new Parser({ fields });
-//     const csv = json2csvParser.parse(tickets);
-//     fs.writeFileSync(filename, csv);
-//     return filename;
-//   } catch (error) {
-//     console.error("CSV Export Error:", error);
-//     throw error;
-//   }
-// };
-
-// export const exportToPDF = (tickets, filename) => {
-//   try {
-//     const doc = new PDFDocument();
-//     doc.pipe(fs.createWriteStream(filename));
-
-//     doc.fontSize(20).text("Attendance Report", { align: "center" });
-//     doc.moveDown();
-
-//     tickets.forEach((t, index) => {
-//       doc.fontSize(12).text(
-//         `${index + 1}. ${t.attendeeName} | ${t.seatType} | ${t.seatNumber} | ${t.isUsed ? "Checked-In" : "Not Checked-In"} | ${t.checkInTime || "-"}`
-//       );
-//     });
-
-//     doc.end();
-//     return filename;
-//   } catch (error) {
-//     console.error("PDF Export Error:", error);
-//     throw error;
-//   }
-// };
 
 
 import fs from "fs";

@@ -27,7 +27,7 @@ const eventSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    // ✅ Link event to the user (admin) who created it
+    //  Link event to the user (admin) who created it
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

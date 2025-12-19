@@ -1,12 +1,11 @@
 
-
-
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "../services/api";
 
 export default function AttendanceReport() {
   const { eventId } = useParams();
+
   const [tickets, setTickets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [seatType, setSeatType] = useState("");
@@ -22,10 +21,13 @@ export default function AttendanceReport() {
       const res = await axios.get(`/attendance/${eventId}`, {
         params: seatType ? { seatType } : {},
       });
-      setTickets(res.data);
+
+      // ✅ MAIN FIX IS HERE
+      setTickets(res.data.tickets || []);
       setError("");
     } catch (err) {
       setError(err.response?.data?.message || "Failed to load attendance");
+      setTickets([]);
     } finally {
       setLoading(false);
     }
@@ -41,14 +43,11 @@ export default function AttendanceReport() {
       const url = window.URL.createObjectURL(new Blob([res.data]));
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute(
-        "download",
-        `attendance_${eventId}.${format === "pdf" ? "pdf" : "csv"}`
-      );
+      link.download = `attendance_${eventId}.${format}`;
       document.body.appendChild(link);
       link.click();
       link.remove();
-    } catch (error) {
+    } catch {
       alert("Failed to export data");
     }
   };
@@ -64,7 +63,7 @@ export default function AttendanceReport() {
           <select
             value={seatType}
             onChange={(e) => setSeatType(e.target.value)}
-            className="border rounded-lg px-3 py-2 bg-white shadow-sm text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="border rounded-lg px-3 py-2 bg-white shadow-sm text-sm"
           >
             <option value="">All Seat Types</option>
             <option value="VIP">VIP</option>
@@ -73,14 +72,14 @@ export default function AttendanceReport() {
 
           <button
             onClick={() => handleExport("csv")}
-            className="bg-green-600 text-white px-4 py-2 rounded-lg shadow hover:bg-green-700 transition"
+            className="bg-green-600 text-white px-4 py-2 rounded-lg"
           >
             Export CSV
           </button>
 
           <button
             onClick={() => handleExport("pdf")}
-            className="bg-red-600 text-white px-4 py-2 rounded-lg shadow hover:bg-red-700 transition"
+            className="bg-red-600 text-white px-4 py-2 rounded-lg"
           >
             Export PDF
           </button>
@@ -110,24 +109,21 @@ export default function AttendanceReport() {
             </thead>
             <tbody>
               {tickets.map((t, i) => (
-                <tr
-                  key={i}
-                  className={`border-b ${
-                    i % 2 === 0 ? "bg-gray-50" : "bg-white"
-                  }`}
-                >
-                  <td className="py-3 px-4 font-medium">{t.attendeeName}</td>
+                <tr key={t._id || i} className="border-b">
+                  <td className="py-3 px-4 font-medium">
+                    {t.attendeeName}
+                  </td>
                   <td className="py-3 px-4">{t.seatType}</td>
                   <td className="py-3 px-4">{t.seatNumber || "-"}</td>
                   <td className="py-3 px-4">
                     <span
                       className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                        t.isUsed
+                        t.checkedIn
                           ? "bg-green-100 text-green-700"
                           : "bg-yellow-100 text-yellow-700"
                       }`}
                     >
-                      {t.isUsed ? "Checked In" : "Not Used"}
+                      {t.checkedIn ? "Checked In" : "Not Used"}
                     </span>
                   </td>
                   <td className="py-3 px-4">

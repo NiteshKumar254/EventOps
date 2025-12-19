@@ -4,9 +4,6 @@ import fs from "fs";
 import Ticket from "../models/Ticket.js";
 import { exportToCSV, exportToPDF } from "../utils/exportData.js";
 
-// @desc    Get or export attendance report
-// @route   GET /api/attendance/:eventId
-// @access  Private (protected route)
 export const getAttendanceReport = async (req, res) => {
   try {
     const { eventId } = req.params;
@@ -29,15 +26,10 @@ export const getAttendanceReport = async (req, res) => {
 
     // If frontend request → return JSON summary (no format)
     if (!format) {
-      return res.status(200).json({
-        success: true,
-        eventId,
-        totalTickets,
-        checkedInCount,
-        tickets, // send tickets if frontend wants to list them
-      });
-    }
-
+      return res.status(200).json({ success: true, eventId, totalTickets, checkedInCount,
+                                  tickets, // send tickets if frontend wants to list them
+                        });
+           }
     // If export requested → handle CSV or PDF
     const filename = `attendance_${eventId}.${format}`;
 
@@ -48,7 +40,6 @@ export const getAttendanceReport = async (req, res) => {
     } else {
       return res.status(400).json({ message: "Invalid export format" });
     }
-
     //  Send the file and then delete after sending
     res.download(filename, (err) => {
       if (err) {
@@ -62,10 +53,20 @@ export const getAttendanceReport = async (req, res) => {
     });
   } catch (error) {
     console.error("Attendance Report Error:", error);
-    res.status(500).json({
-      success: false,
-      message: "Server Error",
-      error: error.message,
+    res.status(500).json({ success: false, message: "Server Error", error: error.message,
     });
   }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+

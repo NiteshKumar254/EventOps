@@ -1,5 +1,4 @@
 
-
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -25,9 +24,6 @@ app.use(cors({
   ],
   credentials: true,
 }));
-
-
-
 app.options(/(.*)/, cors());
 
 // Middleware setup

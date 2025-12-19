@@ -26,7 +26,7 @@ router.get("/:eventId/summary", protect, async (req, res) => {
     const totalTickets = await Ticket.countDocuments({ eventId });
     const checkedInCount = await Ticket.countDocuments({
       eventId,
-      isCheckedIn: true,
+      isUsed: true,
     });
 
     res.json({ totalTickets, checkedInCount });
